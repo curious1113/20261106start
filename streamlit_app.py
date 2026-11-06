@@ -1,4 +1,5 @@
 from html import escape
+from textwrap import dedent
 
 import streamlit as st
 
@@ -6,22 +7,22 @@ import streamlit as st
 st.set_page_config(page_title="자기소개 | Personal Profile", page_icon="✳", layout="wide")
 
 PROFILE = {
-        "name": "이름을 입력하세요",
-        "headline": "나를 설명하는 한 문장을 적어보세요.",
-        "introduction": "관심 분야와 좋아하는 일, 중요하게 생각하는 가치를 소개해 주세요.",
-        "affiliation": "학교 · 학과 또는 회사 · 팀",
-        "location": "활동 지역을 입력하세요",
-        "dream": "앞으로 이루고 싶은 목표와 그 이유를 적어보세요.",
+        "name": "선상현",
+        "headline": "오늘도 좋은 하루.",
+        "introduction": "배추 기르기, 김장",
+        "affiliation": "충주중산고등학교, 청주교육대학교",
+        "location": "충청북도 충주시 호암동",
+        "dream": "단기적 수준의 유연한 움직임",
         "email": "your.email@example.com",
         "career": [
-                {"period": "2024 — 현재", "title": "현재 소속 또는 활동", "detail": "맡은 역할이나 배우고 있는 내용을 적어보세요."},
-                {"period": "2022 — 2024", "title": "이전 경험 또는 프로젝트", "detail": "기억에 남는 성과와 경험을 적어보세요."},
-                {"period": "2021", "title": "첫 번째 경험", "detail": "경력, 수상, 봉사, 동아리 활동 등을 적어보세요."},
+                {"period": "2026 — 현재", "title": "현재 소속", "detail": "청주교육대학교 과학교육과"},
+                {"period": "2023 — 2025", "title": "프로젝트", "detail": "STEAM형 교수학습의 연구"},
+                {"period": "2021", "title": "경력", "detail": "59 역사 장학 및 60 과학 장학 수상"},
         ],
 }
 
 career_items = "".join(
-        f"""
+    dedent(f"""
         <article class="career-item">
             <p class="career-period">{escape(item['period'])}</p>
             <div>
@@ -30,12 +31,12 @@ career_items = "".join(
             </div>
             <span class="career-mark" aria-hidden="true">↗</span>
         </article>
-        """
+            """)
         for item in PROFILE["career"]
 )
 
-st.markdown(
-        """
+st.html(
+            dedent("""
         <style>
             :root {
                 --ink: #24221f;
@@ -100,12 +101,11 @@ st.markdown(
                 .contact { align-items: start; flex-direction: column; }
             }
         </style>
-        """,
-        unsafe_allow_html=True,
+        """),
 )
 
-st.markdown(
-        f"""
+st.html(
+        dedent(f"""
         <main class="profile-page">
             <header class="hero">
                 <div class="hero-top"><span class="eyebrow">Personal profile</span><span class="eyebrow">2026</span></div>
@@ -156,6 +156,5 @@ st.markdown(
                 <p class="footer-note">© {escape(PROFILE['name'])}</p>
             </footer>
         </main>
-        """,
-        unsafe_allow_html=True,
+        """),
 )
